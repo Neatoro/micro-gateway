@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "Create Service schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "name": "test",
+            "host": "localhost",
+            "path": "/api/v1.0",
+            "port": 2001
+        }
+    ],
+    "required": [
+        "name",
+        "host",
+        "path",
+        "port"
+    ],
+    "properties": {
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "title": "The name schema",
+            "description": "Name of the to be created service",
+            "default": "",
+            "examples": [
+                "test"
+            ]
+        },
+        "host": {
+            "$id": "#/properties/host",
+            "type": "string",
+            "title": "The host schema",
+            "description": "Host of the to be created service",
+            "default": "",
+            "examples": [
+                "localhost"
+            ]
+        },
+        "path": {
+            "$id": "#/properties/path",
+            "type": "string",
+            "title": "The path schema",
+            "description": "Target base path of the to be created service",
+            "default": "",
+            "examples": [
+                "/api/v1.0"
+            ]
+        },
+        "port": {
+            "$id": "#/properties/port",
+            "type": "integer",
+            "title": "The port schema",
+            "description": "Port of the to be created service",
+            "default": 0,
+            "examples": [
+                2001
+            ]
+        }
+    }
+}

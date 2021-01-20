@@ -1,5 +1,7 @@
 const express = require('express');
 const httpProxy = require('http-proxy');
+const Ajv = require('ajv').default;
+const createServiceSchema = require('./schema/createservice.json');
 
 module.exports = class ApiGateway {
 
@@ -7,6 +9,7 @@ module.exports = class ApiGateway {
         this.app = express();
         this.services = {};
         this.proxy = httpProxy.createProxy();
+        this.onboardingApp = undefined;
 
         this.app.all('*', (request, response, next) => this.proxyRequest(request, response, next));
     }
@@ -17,6 +20,34 @@ module.exports = class ApiGateway {
             host,
             port
         };
+
+        return this;
+    }
+
+    activateOnboardingService() {
+        this.onboardingApp = express();
+        this.onboardingApp.use(express.json());
+
+        const router = new express.Router();
+
+        router.post('/service', (request, response) => {
+            const ajv = new Ajv();
+            if (!ajv.validate(createServiceSchema, request.body)) {
+                response.status(400).json(ajv.errors);
+                return;
+            }
+
+            this.addService({
+                name: request.body.name,
+                host: request.body.host,
+                targetPath: request.body.path,
+                port: request.body.port
+            });
+
+            response.sendStatus(201);
+        });
+
+        this.onboardingApp.use('/_onboarding', router);
 
         return this;
     }
@@ -33,6 +64,7 @@ module.exports = class ApiGateway {
             const servicePath = service.targetPath + delimiter + pathParts.slice(2).join('/');
 
             console.log('Requested service', serviceName, servicePath);
+            console.log(service);
 
             this.proxy.web(request, response, {
                 ignorePath: true,
@@ -45,6 +77,9 @@ module.exports = class ApiGateway {
 
     listen(port) {
         return new Promise((resolve) => {
+            if (this.onboardingApp) {
+                this.onboardingApp.listen(1234);
+            }
             this.app.listen(port, resolve);
         });
     }

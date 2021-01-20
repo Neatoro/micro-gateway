@@ -6,6 +6,7 @@
   "author": "Moritz Schramm",
   "license": "ISC",
   "dependencies": {
+    "ajv": "7.0.3",
     "express": "4.17.1",
     "http-proxy": "1.18.1"
   }

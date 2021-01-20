@@ -6,7 +6,7 @@ gateway.addService({
     name: 'test',
     host: 'localhost',
     port: 2001,
-    targetPath: '/'
+    targetPath: '/api/v1.0'
 });
 
 (async () => {

@@ -1,0 +1,11 @@
+{
+  "name": "api-gateway",
+  "version": "0.0.1",
+  "description": "A reusable api gateway",
+  "main": "index.js",
+  "author": "Moritz Schramm",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}

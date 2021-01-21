@@ -11,7 +11,7 @@ module.exports = class ApiGateway {
         this.proxy = httpProxy.createProxy();
         this.onboardingApp = undefined;
 
-        this.app.all('*', (request, response, next) => this.proxyRequest(request, response, next));
+        this.app.use((request, response, next) => this.proxyRequest(request, response, next));
     }
 
     addService({ name, targetPath, host, port }) {
@@ -64,7 +64,6 @@ module.exports = class ApiGateway {
             const servicePath = service.targetPath + delimiter + pathParts.slice(2).join('/');
 
             console.log('Requested service', serviceName, servicePath);
-            console.log(service);
 
             this.proxy.web(request, response, {
                 ignorePath: true,

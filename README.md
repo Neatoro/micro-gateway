@@ -6,7 +6,7 @@ This is still in progress of development.
 ## Installation
 
 ```sh
-npm install --save micro-gateway
+npm install --save @moritz.schramm/micro-gateway
 ```
 
 ## Usage

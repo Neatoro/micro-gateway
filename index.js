@@ -25,6 +25,9 @@ module.exports = class ApiGateway {
     }
 
     activateOnboardingService() {
+        const swaggerUi = require('swagger-ui-express');
+        const swagger = require('./swagger.json');
+
         this.onboardingApp = express();
         this.onboardingApp.use(express.json());
 
@@ -46,6 +49,8 @@ module.exports = class ApiGateway {
 
             response.sendStatus(201);
         });
+
+        router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swagger));
 
         this.onboardingApp.use('/_onboarding', router);
 

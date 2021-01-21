@@ -1,0 +1,68 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "This is the documentation of the onboarding service build into Micro Gateway",
+      "version": "1.0.0",
+      "title": "Micro Gateway Onboarding"
+    },
+    "basePath": "/_onboarding",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/service": {
+        "post": {
+          "summary": "Onboard a new service",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Service Object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Service"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Successfully onboarded the service"
+            },
+            "400": {
+              "description": "The request body does not match the required format"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Service": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "example-service",
+            "description": "Name of the service"
+          },
+          "host": {
+            "type": "string",
+            "example": "localhost",
+            "description": "Host of the service"
+          },
+          "port": {
+            "type": "integer",
+            "example": 8080,
+            "description": "Exposed port of the service"
+          },
+          "path": {
+            "type": "string",
+            "example": "/api",
+            "description": "Base path of proxied request"
+          }
+        }
+      }
+    }
+  }

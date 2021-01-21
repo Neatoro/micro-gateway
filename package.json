@@ -1,5 +1,5 @@
 {
-  "name": "micro-gateway",
+  "name": "@moritz.schramm/micro-gateway",
   "version": "0.0.1",
   "description": "A reusable api gateway",
   "main": "index.js",
